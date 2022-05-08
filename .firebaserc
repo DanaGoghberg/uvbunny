@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "uvbunny-75981": {
+      "hosting": {
+        "uvbunny": [
+          "uvbunny-75981"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "uvbunny-75981"
+  }
+}

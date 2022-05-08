@@ -1,0 +1,9 @@
+<h1>{{bunny?.name}} </h1>
+
+<div class="bunny" [class.bunny-content]="status =='content'" [class.bunny-sad]="status =='sad'"></div>
+
+<div class="happiness status-indicator">
+  <span fxFlex="60%">Happiness</span>
+  <mat-progress-bar fxFlex="25%" mode="determinate" [value]="happiness()" color="warn"></mat-progress-bar>
+  <strong fxFlex="15%" class="status-indicator-counter">happiness</strong>
+</div>

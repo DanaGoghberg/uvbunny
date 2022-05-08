@@ -1,0 +1,15 @@
+<mat-card class="item" *ngIf="bunny" (dblclick)="edit.emit(bunny)">
+    <mat-card-title>{{bunny.name}}</mat-card-title>
+     <img src="happy-bunny.png"  width="200" height="80">
+     <mat-card-actions>
+        <button olor="primary" (click)="feed('Lettuse')" mat-button>
+            <mat-icon>add</mat-icon> Lettuse
+          </button>
+          <button olor="primary" (click)="feed('Carrot')" mat-button>
+            <mat-icon>add</mat-icon> Carrot
+          </button>
+          <button olor="accent" (click)="play('')" mat-button>
+            <mat-icon>category</mat-icon> Play
+          </button>
+    </mat-card-actions>
+  </mat-card>

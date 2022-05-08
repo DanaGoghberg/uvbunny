@@ -1,22 +1,14 @@
 
-<div class="content-wrapper">
-    <button mat-raised-button color="accent"(click)="addBunny()" mat-button>
+    <section fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly row center">
+      <button mat-raised-button color="accent"(click)="addBunny()" mat-button>
       <mat-icon>add</mat-icon> Add new Bunny
     </button>
 
-    <section fxLayout="column" fxLayoutGap="12px">
-    <div class="container-wrapper">
-        <div class="container">
+    <section fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly row center">
           <h2>My Bunnies</h2>
-    
-          <mat-card
-            cdkList
-            id="todo"
-            class="list">
+          <mat-card>
             <p class="empty-label" *ngIf="(bunnies | async)?.length === 0">No Bunnies yet! Add a new bunny:)</p>
-            <app-bunny-status *ngFor="let bunny of bunnies | async"  [bunny]="bunny"></app-bunny-status>
+            <app-bunny-status *ngFor="let bunny of bunnies | async"  [bunny]="bunny" [routerLink]="[bunny.name, '']"></app-bunny-status>
           </mat-card>
-        </div>
-    </div>
+  </section>
 </section>
-</div>

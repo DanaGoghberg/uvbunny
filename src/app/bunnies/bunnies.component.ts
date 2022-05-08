@@ -22,7 +22,8 @@ export class BunniesComponent{
   bunnies: Observable<Bunny[]> | undefined;
 
   constructor( private dialog: MatDialog, private store: AngularFirestore) { 
-    this.bunnies = getObservable(this.store.collection('bunnies')) as Observable<Bunny[]>;
+    // this.bunnies = getObservable(this.store.collection('bunnies')) as Observable<Bunny[]>;
+    this.bunnies = store.collection('bunnies').valueChanges() as Observable<Bunny[]>;
   } 
 
    // create new Bunny!

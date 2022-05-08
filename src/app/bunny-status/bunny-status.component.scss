@@ -5,22 +5,22 @@ h1 {
 .bunny {
     width: 150px;
     height: 150px;
-    background-image: url('/Users/dana.g/uvbunny/src/app/assets/happy-bunny.png');
+    // background-image: url('/Users/dana.g/uvbunny/src/app/assets/happy-bunny.png');
     background-size: contain;
     background-repeat: no-repeat;
     margin: 0 auto;
 }
 
-.bunny-content {
-    background-image: url('/Users/dana.g/uvbunny/src/app/assets/content.png');
-    width: 150px;
-    height: 150px;
-}
-.bunny-sad {
-    background-image: url('/Users/dana.g/uvbunny/src/app/assets/sad-bunny.jpeg');
-    width: 150px;
-    height: 150px;
-}
+// .bunny-content {
+//     background-image: url('/Users/dana.g/uvbunny/src/app/assets/content.png');
+//     width: 150px;
+//     height: 150px;
+// }
+// .bunny-sad {
+//     background-image: url('/Users/dana.g/uvbunny/src/app/assets/sad-bunny.jpeg');
+//     width: 150px;
+//     height: 150px;
+// }
 
 .status-indicator {
     margin: 12px 0;

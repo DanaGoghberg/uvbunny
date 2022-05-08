@@ -7,7 +7,7 @@ import { Bunny } from '../bunny/bunny';
   styleUrls: ['./bunny-status.component.scss']
 })
 export class BunnyStatusComponent implements OnInit {
-  @Input() bunny: Bunny | undefined
+  @Input() bunny: Bunny | null | undefined
 
   constructor() { }
 

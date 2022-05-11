@@ -25,4 +25,5 @@ export class BunnyStatusComponent implements OnInit {
       return 'sad'
     }
   }
+  openBunny(){}
 }

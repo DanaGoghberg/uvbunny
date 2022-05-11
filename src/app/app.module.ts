@@ -25,6 +25,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
     BunniesComponent,
     BunnyComponent,
     BunnyDialogComponent,
-    BunnyStatusComponent
+    BunnyStatusComponent,
+    ConfigurationComponent
   ],
   imports: [
     BrowserModule,

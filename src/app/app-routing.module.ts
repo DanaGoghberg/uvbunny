@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BunniesComponent } from './bunnies/bunnies.component';
+import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
 import { BunnyComponent } from './bunny/bunny.component'
 
 const routes: Routes = [
@@ -13,10 +14,20 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: BunnyComponent,
-        pathMatch: 'prefix',
+        component: BunnyStatusComponent,
+        children: [
+          {
+            path: 'care',
+            component: BunnyComponent,
+          },
+        ],      
       },
     ],
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'bunnies',
   },
   {
     path: '**',

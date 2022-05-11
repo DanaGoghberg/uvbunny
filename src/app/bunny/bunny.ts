@@ -1,6 +1,7 @@
 export class Bunny {
 	totalPoints : number;
 	players : Bunny[];
+	friends: Map<string, boolean>;
 	carrots : number;
 	lettuse : number;
 	plays  : number;
@@ -9,6 +10,7 @@ export class Bunny {
     constructor(public name: string) {
 		this.totalPoints = 0;
 		this.players = []
+		this.friends = new Map<string, boolean>()
 		this.carrots = 0;
 		this.lettuse = 0;
 		this.plays = 0;

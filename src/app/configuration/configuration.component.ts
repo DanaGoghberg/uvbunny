@@ -13,19 +13,20 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  babyHungry() {
-    const statRef = this.firebaseApp.database().ref(`/babies/${this.babyId}/hunger`);
+  carrot(amount: number) {
+    const statRef = this.firebaseApp.database().ref(`/points/carrot`);
     statRef.transaction(stat => stat + 10);
   }
 
-  babyShitty() {
-    const statRef = this.firebaseApp.database().ref(`/babies/${this.babyId}/shittiness`);
+  lettuse(amount: number) {
+    const statRef = this.firebaseApp.database().ref(`/points/lettus`);
     statRef.transaction(stat => stat + 10);
   }
 
-  babySleepy() {
-    const statRef = this.firebaseApp.database().ref(`/babies/${this.babyId}/sleepiness`);
+  game(amount: number) {
+    const statRef = this.firebaseApp.database().ref(`/points/game`);
     statRef.transaction(stat => stat + 10);
+    statRef.update
   }
 
 }

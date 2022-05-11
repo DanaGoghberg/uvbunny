@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable ,BehaviorSubject} from 'rxjs';
 import { Bunny } from '../bunny/bunny'
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire//compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { BunnyDialogComponent, BunnyDialogResult } from '../bunny-dialog/bunny-dialog.component';
 
@@ -19,11 +19,10 @@ const getObservable = (collection: AngularFirestoreCollection<Bunny>) => {
   styleUrls: ['./bunnies.component.scss']
 })
 export class BunniesComponent{
-  bunnies: Observable<Bunny[]> | undefined;
+  bunnies: Observable<any> | undefined;
 
   constructor( private dialog: MatDialog, private store: AngularFirestore) { 
-    // this.bunnies = getObservable(this.store.collection('bunnies')) as Observable<Bunny[]>;
-    this.bunnies = store.collection('bunnies').valueChanges() as Observable<Bunny[]>;
+    this.bunnies = store.collection<Bunny>('bunnies').valueChanges({ idField: 'eventId' });
   } 
 
    // create new Bunny!

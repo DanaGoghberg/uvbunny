@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'uvbunny';
+  @ViewChild(ConfigurationComponent) config: ConfigurationComponent | undefined;
+  onConfig(){}
 }
 

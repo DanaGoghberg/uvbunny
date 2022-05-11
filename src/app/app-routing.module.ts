@@ -12,16 +12,6 @@ const routes: Routes = [
         path: '',
         component: BunniesComponent,
       },
-      {
-        path: ':id',
-        component: BunnyStatusComponent,
-        children: [
-          {
-            path: 'care',
-            component: BunnyComponent,
-          },
-        ],      
-      },
     ],
   },
   {

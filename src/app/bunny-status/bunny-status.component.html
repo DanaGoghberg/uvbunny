@@ -5,7 +5,7 @@
 
 <div class="happiness status-indicator">
   <span fxFlex="60%">Happiness</span>
-  <mat-progress-bar fxFlex="25%" mode="determinate" [value]="happiness()" color="warn"></mat-progress-bar>
-  <strong fxFlex="15%" class="status-indicator-counter">happiness</strong>
+  <mat-progress-bar fxFlex="25%" mode="determinate" [value]="bunny?.totalPoints" color="warn"></mat-progress-bar>
+  <strong fxFlex="15%" class="status-indicator-counter">{{bunny?.totalPoints}}</strong>
 </div>
 </section>

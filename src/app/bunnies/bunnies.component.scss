@@ -1,5 +1,12 @@
 :host {
-    width: 50vw;
     text-align: center;
     display:flex;
   }
+
+.add-bunny{
+  float: left;
+}
+.bunnies{
+  display: inline-grid;
+  padding-left: 150px
+}

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Bunny } from './bunny';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -13,35 +13,30 @@ import { FirebaseApp } from '@angular/fire/compat';
   styleUrls: ['./bunny.component.scss']
 })
 export class BunnyComponent{
-bunny: Observable<Bunny | null> | undefined;
+bunny: Observable<Bunny | undefined> | undefined;
 @Input() bunnyId$: Observable<string> | undefined;
 
 //   Input() bunnyName: string | null = null;
 //   @Output() edit = new EventEmitter<Bunny>();
   constructor(private activatedRoute: ActivatedRoute, private firebaseApp: FirebaseApp, 
     private db: AngularFireDatabase, private store: AngularFirestore) { }
-  ngOnInit(): void {
-    this.activatedRoute
-    .params
-    .subscribe(
-      p => {
-        const key = p['id'];
-        const bunnies = this.store.collection<Bunny>('bunnies');
-        this.bunny = this.db.object<Bunny>(`/babies/${key}`).valueChanges();
 
-      }
-    );
+  ngOnInit(): void {
+    const key = this.bunnyId$;
+    const bunnies = this.store.collection<Bunny>('bunnies');
+    this.bunny =  bunnies.doc(`${key}`).valueChanges();
   }
+
   feed(veg: string){
-    const totalRef = this.firebaseApp.database().ref(`/babies/${this.bunnyId$}/totalPoints`);
+    const totalRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}/totalPoints`);
     if(veg==='Carrot'){
-      const statRef = this.firebaseApp.database().ref(`/babies/${this.bunnyId$}/carrots`);
+      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}/carrots`);
       statRef.transaction(stat => stat + 1);
       totalRef.transaction(stat => stat + 3);
 
     }
     else{
-      const statRef = this.firebaseApp.database().ref(`/babies/${this.bunnyId$}/lettuse`);
+      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}/lettuse`);
       statRef.transaction(stat => stat + 1);
       totalRef.transaction(stat => stat + 1);
     }
@@ -50,7 +45,7 @@ bunny: Observable<Bunny | null> | undefined;
   }
   
   play(name: string){
-    const bunny1tatRef = this.firebaseApp.database().ref(`/babies/${this.bunnyId$}`);
+    const bunny1tatRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}`);
     bunny1tatRef.transaction(bunny => {
       if (bunny) {
         if(bunny.friends.has(name)){

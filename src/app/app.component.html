@@ -1,12 +1,18 @@
-<section fxLayout="row wrap" fxLayoutAlign="space-evenly row center" fxFill>
+<!-- <section fxLayout="row wrap" fxLayoutAlign="space-evenly row center" fxFill> -->
 
   <mat-toolbar color="primary" class="mat-elevation-z6">
     <mat-icon>local_fire_department</mat-icon>
     <span class="app-title" [routerLink]="['/']">UVBunny</span>
   </mat-toolbar>
 
+    <section class='configurations'>
+    <button mat-raised-button color="accent" (click)="onConfig()" mat-button>
+      <mat-icon>settings</mat-icon> Configurations
+    </button>
+  </section>
+
   <section fxFlex fxLayout="row wrap" fxLayoutAlign="space-evenly row center" fxLayoutGap="12px" class="app-content">
     <app-bunnies></app-bunnies>
   </section>
-</section>
+<!-- </section> -->
 

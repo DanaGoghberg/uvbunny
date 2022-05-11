@@ -1,6 +1,6 @@
 <section fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="12px">
-    <mat-card class="item" *ngIf="bunny | async; let baby; else loading">
-    <mat-card-title>{{(bunny | async)?.name }}</mat-card-title>
+    <mat-card class="item" *ngIf="bunny | async; let bunny; else loading">
+    <mat-card-title>{{bunny.name }}</mat-card-title>
      <img src="assets/images/happy.png"  width="200" height="80">
      <mat-card-actions>
         <button color="primary" (click)="feed('Lettuse')" mat-raised-button>
@@ -15,6 +15,5 @@
     </mat-card-actions>
   </mat-card>
   <ng-template #loading>Loading bunny Data...</ng-template>
-  <router-outlet></router-outlet>
 </section>
 

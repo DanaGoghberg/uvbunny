@@ -1,6 +1,6 @@
 <section fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="12px">
     <mat-card class="item" *ngIf="bunny | async; let bunny; else loading">
-    <mat-card-title>{{bunny.name }}</mat-card-title>
+    <mat-card-title>{{bunny.name}}</mat-card-title>
      <img src="assets/images/happy.png"  width="200" height="80">
      <mat-card-actions>
         <button color="primary" (click)="feed('Lettuse')" mat-raised-button>
@@ -9,7 +9,8 @@
           <button color="primary" (click)="feed('Carrot')" mat-raised-button>
             <mat-icon>add</mat-icon> Carrot
           </button>
-          <button color="accent" (click)="play('')" mat-raised-button>
+          <button color="accent"  mat-raised-button [matMenuTriggerFor]="friendsMenu"
+          [matMenuTriggerData]="bunnies |async">
             <mat-icon>category</mat-icon> Play
           </button>
     </mat-card-actions>
@@ -17,3 +18,8 @@
   <ng-template #loading>Loading bunny Data...</ng-template>
 </section>
 
+<mat-menu #friendsMenu="matMenu">
+    <ng-template matMenuContent>
+      <button *ngFor="let friend of bunnies | async"  mat-menu-item (click)="play(friend.id)">{{friend.name}}</button>
+    </ng-template>
+  </mat-menu>

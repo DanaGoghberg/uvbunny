@@ -26,6 +26,8 @@ import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
+    MatMenuModule,
     MatProgressBarModule,
+    MatExpansionModule,
     FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,

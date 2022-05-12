@@ -5,10 +5,17 @@
     <span class="app-title" [routerLink]="['/']">UVBunny</span>
   </mat-toolbar>
 
-    <section class='configurations'>
-    <button mat-raised-button color="accent" (click)="onConfig()" mat-button>
-      <mat-icon>settings</mat-icon> Configurations
-    </button>
+  <section class='configurations'>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header role="button" >
+      <mat-panel-title>
+        <button mat-raised-button color="accent" (click)="onConfig()" mat-button>
+          <mat-icon>settings</mat-icon> Configurations
+        </button>      
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-configuration> </app-configuration>     
+    </mat-expansion-panel>
   </section>
 
   <section fxFlex fxLayout="row wrap" fxLayoutAlign="space-evenly row center" fxLayoutGap="12px" class="app-content">

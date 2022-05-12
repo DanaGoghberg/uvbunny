@@ -1,5 +1,5 @@
-<section fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="12px" (click)="openBunny()">
-<h1>{{bunny?.name}} </h1>
+<section fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="12px" (click)="openBunny()" *ngIf="bunny | async; let bunny; else loading">
+<h1>{{bunny.name}} </h1>
 <!-- <div class="bunny" [class.bunny-content]="status =='content'" [class.bunny-sad]="status =='sad'"></div> -->
 <img  class="bunny" src="assets/images/happy.png">
 
@@ -9,3 +9,4 @@
   <strong fxFlex="15%" class="status-indicator-counter">{{bunny?.totalPoints}}</strong>
 </div>
 </section>
+<ng-template #loading>Loading bunny Data...</ng-template>

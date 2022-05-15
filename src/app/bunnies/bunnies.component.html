@@ -1,15 +1,17 @@
 
-    <section fxLayout="col wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly col center">
-      <button class='add-bunny'mat-raised-button color="accent"(click)="addBunny()" mat-button>
+    <section fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly row center">
+      <button class='add-bunny'mat-raised-button or="accent"(click)="addBunny()" mat-button>
       <mat-icon>add</mat-icon> Add new Bunny
     </button>
 
-    <section class="bunnies" fxLayout="col wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly col center">
+    <section class="bunnies" fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly row center">
           <h1>My Bunnies</h1>
           <mat-card>
             <p class="empty-label" *ngIf="(bunnies | async)?.length === 0">No Bunnies yet! Add a new bunny:)</p>
-            <app-bunny-status *ngFor="let bunny of bunnies | async"  [bunnyId$]="bunny.id"[routerLink]="[bunny.name, '']"></app-bunny-status>
-            <!-- <app-bunny *ngFor="let bunny of bunnies | async"  [bunnyId$]="bunny .id" ></app-bunny> -->
+            <section *ngFor="let bunny of bunnies | async" >
+            <app-bunny-status [bunnyId$]="bunny.id"></app-bunny-status>
+            <mat-divider></mat-divider>
+            </section>
           </mat-card>
   </section>
 </section>

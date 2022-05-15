@@ -10,10 +10,33 @@
     </mat-expansion-panel-header>
     <mat-card>
       <mat-card-title>Bunny Credits Configuration</mat-card-title>
-      <mat-card-content>
-        <button md-raised-button (click)="carrot(1)">Carrot</button>
-        <button md-raised-button (click)="lettuse(1)">Lettuse</button>
-        <button md-raised-button (click)="game(1)">Game</button>
+      <mat-card-content >
+        <form class="example-form">
+
+        <mat-form-field appearance="fill">         
+          <mat-label>Carrot Points</mat-label>
+          <input matInput type="number" value="config.carrot" #poins>
+        </mat-form-field>        
+        <button mat-stroked-button (click)="carrot(poins.value)">Save</button>
+        <mat-form-field appearance="fill">
+          
+          <mat-label>Lettuse Points</mat-label>
+          <input matInput type="number" value="config.lettuse" #poins>
+        </mat-form-field>        
+        <button mat-stroked-button (click)="lettuse(poins.value)">Save</button>
+       
+        <mat-form-field appearance="fill">
+          <mat-label>First Game Points</mat-label>
+          <input matInput type="number" value="config.playFirst" #poins>
+        </mat-form-field>        
+        <button mat-stroked-button (click)="playFirst(poins.value)">Save</button> 
+
+        <mat-form-field appearance="fill">
+          <mat-label>Game with Friend Points</mat-label>
+          <input matInput type="number" value="config.playFriend" #poins>
+        </mat-form-field>        
+        <button mat-stroked-button (click)="playFriend(poins.value)">Save</button>
+      </form>          
       </mat-card-content>
     </mat-card>
   </mat-expansion-panel>

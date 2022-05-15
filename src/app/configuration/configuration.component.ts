@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseApp } from '@angular/fire/compat';
+// import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
@@ -8,25 +10,33 @@ import { FirebaseApp } from '@angular/fire/compat';
 })
 export class ConfigurationComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
     private firebaseApp: FirebaseApp) { }
 
   ngOnInit(): void {
   }
-  carrot(amount: number) {
+  carrot(amount: string) {
     const statRef = this.firebaseApp.database().ref(`/points/carrot`);
-    statRef.transaction(stat => stat + 10);
+    statRef.set(Number(amount));
+    // this.snackBar.open("Carrot points were updated to "+ amount);
+    
   }
 
-  lettuse(amount: number) {
+  lettuse(amount: string) {
     const statRef = this.firebaseApp.database().ref(`/points/lettus`);
-    statRef.transaction(stat => stat + 10);
+    statRef.set(Number(amount));
+    // this.snackBar.open("Lettuse points were updated to "+ amount);
+   }
+
+    playFirst(amount: string) {
+    const statRef = this.firebaseApp.database().ref(`/points/playFirst`);
+    statRef.set(Number(amount));
+    // this.snackBar.open("First game points were updated to ");
   }
 
-  game(amount: number) {
-    const statRef = this.firebaseApp.database().ref(`/points/game`);
-    statRef.transaction(stat => stat + 10);
-    statRef.update
+  playFriend(amount: string) {
+    const statRef = this.firebaseApp.database().ref(`/points/playFriend`);
+    statRef.set(Number(amount));
+    // this.snackBar.open("Friend game points were updated to "+ amount);
   }
-
 }

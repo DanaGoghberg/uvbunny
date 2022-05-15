@@ -19,15 +19,16 @@ export class BunnyStatusComponent implements OnInit {
     this.bunny =  this.store.collection<Bunny>('bunnies').doc(`${this.bunnyId$}`).valueChanges();  
   }
 
-  // get status(): string {
-  //   if (this.bunny?.totalPoints &&  this.bunny?.totalPoints > 50) {
-  //     return 'happy'
-  //   } else if (this.bunny?.totalPoints  && this.bunny?.totalPoints > 25) {
-  //     return 'content'
-  //   } else {
-  //     return 'sad'
-  //   }
-  // }
+  get status(): string {
+    const points = JSON.parse(`${this.bunny}`).totalPoints
+    if (points > 50) {
+      return "assets/images/happy.png"
+    } else if (points > 25) {
+      return "assets/images/content.png"
+    } else {
+      return "assets/images/sad.png"
+    }
+  }
   openBunny(){
       this.app.selectedBunnyid = `${this.bunnyId$}`
   }

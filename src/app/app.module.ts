@@ -28,6 +28,8 @@ import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
+// import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import {MatMenuModule} from '@angular/material/menu';
   imports: [
     BrowserModule,
     MatToolbarModule,
+    // MatSnackBar,
     MatIconModule,
     MatCardModule,
     DragDropModule,
@@ -49,6 +52,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDialogModule,
     MatInputModule,
     MatMenuModule,
+    MatDividerModule,
     MatProgressBarModule,
     MatExpansionModule,
     FormsModule,

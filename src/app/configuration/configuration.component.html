@@ -1,8 +1,19 @@
-<mat-card>
-    <mat-card-title>Bunny Credits Configuration</mat-card-title>
-    <mat-card-content>
-      <button md-raised-button (click)="carrot(1)">Carrot</button>
-      <button md-raised-button (click)="lettuse(1)">Lettuse</button>
-      <button md-raised-button (click)="game(1)">Game</button>
-    </mat-card-content>
-  </mat-card>
+
+
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header role="button" >
+      <mat-panel-title>
+        <button mat-raised-button color="accent" mat-button>
+          <mat-icon>settings</mat-icon> Configurations
+        </button>      
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-title>Bunny Credits Configuration</mat-card-title>
+      <mat-card-content>
+        <button md-raised-button (click)="carrot(1)">Carrot</button>
+        <button md-raised-button (click)="lettuse(1)">Lettuse</button>
+        <button md-raised-button (click)="game(1)">Game</button>
+      </mat-card-content>
+    </mat-card>
+  </mat-expansion-panel>

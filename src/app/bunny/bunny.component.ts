@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { map, Observable } from 'rxjs';
+import { AppComponent } from '../app.component';
 // import { FirebaseApp } from '@angular/fire/app';
 import { FirebaseApp } from '@angular/fire/compat';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -16,10 +17,11 @@ import { MatMenuTrigger } from '@angular/material/menu';
 export class BunnyComponent{
 bunny: Observable<Bunny | undefined> | undefined;
 bunnies: Observable<any> | undefined;
-@Input() bunnyId$: Observable<string> | undefined;
+@Input() bunnyId: string | undefined;
+
 
   constructor(private activatedRoute: ActivatedRoute, private firebaseApp: FirebaseApp, 
-    private db: AngularFireDatabase, private store: AngularFirestore) { }
+    private db: AngularFireDatabase, private store: AngularFirestore, private app: AppComponent) { }
 
   ngOnInit(): void {
     this.bunnies = this.store.collection('bunnies').snapshotChanges().pipe(
@@ -29,23 +31,23 @@ bunnies: Observable<any> | undefined;
           const id = a.payload.doc.id;
 
           return { id, ...data };
-      }).filter(a => a.id!=`${this.bunnyId$}`);
+      }).filter(a => a.id!=this.bunnyId);
       })
   );
-    this.bunny =  this.store.collection<Bunny>('bunnies').doc(`${this.bunnyId$}`).valueChanges();
+    this.bunny =  this.store.collection<Bunny>('bunnies').doc(this.bunnyId).valueChanges();
   }
   
 
   feed(veg: string){
-    const totalRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}/totalPoints`);
+    const totalRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/totalPoints`);
     if(veg==='Carrot'){
-      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}/carrots`);
+      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/carrots`);
       statRef.transaction(stat => stat + 1);
       totalRef.transaction(stat => stat + 3);
 
     }
     else{
-      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}/lettuse`);
+      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/lettuse`);
       statRef.transaction(stat => stat + 1);
       totalRef.transaction(stat => stat + 1);
     }
@@ -54,7 +56,7 @@ bunnies: Observable<any> | undefined;
   }
   
   play(id: string){
-    const bunny1tatRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId$}`);
+    const bunny1tatRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}`);
     const bunny2tatRef = this.firebaseApp.database().ref(`/bunnies/${id}`);
 
     bunny1tatRef.transaction(bunny1 => {
@@ -86,4 +88,8 @@ bunnies: Observable<any> | undefined;
   getIncreasedStat(statGetter: () => number , modifier: number): any {
     return statGetter() + modifier;
   }
+
+  closeBunny(){
+    this.app.selectedBunnyid = undefined;
+}
 }

@@ -1,15 +1,33 @@
 :host {
-    display: block;
-    width: 50vw;
+    display: flex;
+    width: 160vw;
     text-align: center;
+    padding-left: 30vw;
+    padding-top: 2vw;
+
   }
   
   .item {
-    margin-bottom: 10px;
     cursor: pointer;
+    padding:5vw;
+  }
+
+  .title {
+    margin-bottom: 2vw;
   }
 
   div.image {
-    width:100px;
-    height:100px;
+    width:100vw;
+    height:100vw;
+    margin-bottom: 2vw;
+
   }
+
+  .close {
+    float: right;  
+    z-index: 10;
+}
+
+.actions{
+  padding-top: 2vw;
+}

@@ -4,10 +4,11 @@
     float: right;
 }
 
-.app-content{
-    
+.bunny-comp{
+    display:flex;
 }
 
 .configurations{
     color: accent;
+    z-index: 100;
 }

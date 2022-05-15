@@ -1,16 +1,18 @@
 <section fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="12px">
+  <button class="close" mat-button (click)="closeBunny()">
+    <mat-icon>close</mat-icon>
+  </button>
     <mat-card class="item" *ngIf="bunny | async; let bunny; else loading">
-    <mat-card-title>{{bunny.name}}</mat-card-title>
-     <img src="assets/images/happy.png"  width="200" height="80">
-     <mat-card-actions>
+    <mat-card-title class="title">{{bunny.name}}</mat-card-title>
+     <img src="assets/images/happy.png"  width="150" height="170">
+     <mat-card-actions class="actions">
         <button color="primary" (click)="feed('Lettuse')" mat-raised-button>
             <mat-icon>add</mat-icon> Lettuse
           </button>
           <button color="primary" (click)="feed('Carrot')" mat-raised-button>
             <mat-icon>add</mat-icon> Carrot
           </button>
-          <button color="accent"  mat-raised-button [matMenuTriggerFor]="friendsMenu"
-          [matMenuTriggerData]="bunnies |async">
+          <button color="accent"  mat-raised-button [matMenuTriggerFor]="friendsMenu">
             <mat-icon>category</mat-icon> Play
           </button>
     </mat-card-actions>

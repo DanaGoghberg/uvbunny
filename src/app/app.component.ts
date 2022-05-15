@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { ConfigurationComponent } from './configuration/configuration.component';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +6,11 @@ import { ConfigurationComponent } from './configuration/configuration.component'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild(ConfigurationComponent) config: ConfigurationComponent | undefined;
+  selectedBunnyid: string | undefined;
+
+  ngOnInit(): void {
+    this.selectedBunnyid =  undefined;  
+  }
   onConfig(){}
 }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { AppComponent } from '../app.component';
 import { Bunny } from '../bunny/bunny';
 
 @Component({
@@ -12,11 +13,11 @@ export class BunnyStatusComponent implements OnInit {
 
   bunny: Observable<Bunny | undefined> | undefined;
   @Input() bunnyId$: Observable<string> | undefined;
-  constructor(private store: AngularFirestore) { }
+  constructor(private store: AngularFirestore, private app: AppComponent) { }
 
   ngOnInit(): void {
-    const key = this.bunnyId$;
-    this.bunny =  this.store.collection<Bunny>('bunnies').doc(`${key}`).valueChanges();  }
+    this.bunny =  this.store.collection<Bunny>('bunnies').doc(`${this.bunnyId$}`).valueChanges();  
+  }
 
   // get status(): string {
   //   if (this.bunny?.totalPoints &&  this.bunny?.totalPoints > 50) {
@@ -27,5 +28,7 @@ export class BunnyStatusComponent implements OnInit {
   //     return 'sad'
   //   }
   // }
-  openBunny(){}
+  openBunny(){
+      this.app.selectedBunnyid = `${this.bunnyId$}`
+  }
 }

@@ -50,8 +50,7 @@ bunnies: Observable<any> | undefined;
       const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/lettuse`);
       statRef.transaction(stat => stat + 1);
       totalRef.transaction(stat => stat + 1);
-    }
-
+    } 
 
   }
   

@@ -1,19 +1,17 @@
-<!-- <section fxLayout="row wrap" fxLayoutAlign="space-evenly row center" fxFill> -->
   <mat-toolbar color="primary" class="mat-elevation-z6">
     <mat-icon>local_fire_department</mat-icon>
-    <span class="app-title" [routerLink]="['/']">UVBunny</span>
+    <span class="app-title">UVBunny</span>
   </mat-toolbar>
 
   <section class='configurations'>
     <app-configuration> </app-configuration>     
   </section>
 
-  <section *ngIf="!this.selectedBunnyid" fxFlex fxLayout="row wrap" fxLayoutAlign="space-evenly row center" fxLayoutGap="12px" class="app-content">
+  <section *ngIf="!this.selectedBunnyid" class="app-content">
     <app-bunnies></app-bunnies>
   </section>
 
 
   <app-bunny class="bunny-comp" *ngIf="this.selectedBunnyid" [bunnyId]="this.selectedBunnyid" ></app-bunny>
 
-<!-- </section> -->
 

@@ -1,4 +1,4 @@
-<section  class="status-section" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="12px" (click)="openBunny()" *ngIf="bunny | async; let bunny; else loading">
+<section  class="status-section" (click)="openBunny()" *ngIf="bunny | async; let bunny; else loading">
 <h1>{{bunny.name}} </h1>
 <!-- TODO: <div class="bunny" [class.bunny-content]="status =='content'" [class.bunny-sad]="status =='sad'"></div> -->
 <img  class="bunny" src="assets/images/happy.png">

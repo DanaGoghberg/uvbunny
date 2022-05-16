@@ -29,7 +29,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
-// import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -44,7 +44,7 @@ import {MatDividerModule} from '@angular/material/divider';
   imports: [
     BrowserModule,
     MatToolbarModule,
-    // MatSnackBar,
+    MatGridListModule,
     MatIconModule,
     MatCardModule,
     DragDropModule,

@@ -1,17 +1,14 @@
 
-    <section fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly row center">
-      <button class='add-bunny'mat-raised-button or="accent"(click)="addBunny()" mat-button>
+    <section>
+      <button class='add-bunny'mat-raised-button color="accent"(click)="addBunny()" mat-button>
       <mat-icon>add</mat-icon> Add new Bunny
     </button>
 
-    <section class="bunnies" fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign="space-evenly row center">
-          <h1>My Bunnies</h1>
-          <mat-card>
+    <h1 class="title">My Bunnies</h1>
+    <mat-grid-list class="bunnies" cols="3" rowHeight="1:2">
             <p class="empty-label" *ngIf="(bunnies | async)?.length === 0">No Bunnies yet! Add a new bunny:)</p>
-            <section *ngFor="let bunny of bunnies | async" >
+            <mat-grid-tile *ngFor="let bunny of bunnies | async" >
             <app-bunny-status [bunnyId$]="bunny.id"></app-bunny-status>
-            <mat-divider></mat-divider>
-            </section>
-          </mat-card>
-  </section>
-</section>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </section>

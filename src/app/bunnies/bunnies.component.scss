@@ -9,5 +9,14 @@
 .bunnies{
   display: inline-grid;
   padding-left: 30vw;
-  padding-top: 5vw;;
+  padding-top: 3vw;;
+  margin-left: 30vw;
+  z-index: 20;
+
+}
+
+.title{
+  margin-left: 31vw;
+  padding-top: 5vw;
+  z-index: 10;
 }

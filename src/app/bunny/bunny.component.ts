@@ -1,13 +1,14 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Bunny } from './bunny';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { AppComponent } from '../app.component';
 // import { FirebaseApp } from '@angular/fire/app';
 import { FirebaseApp } from '@angular/fire/compat';
-import { MatMenuTrigger } from '@angular/material/menu';
+import {  arrayUnion, increment, setDoc } from "firebase/firestore";
+
 
 @Component({
   selector: 'app-bunny',
@@ -15,80 +16,123 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./bunny.component.scss']
 })
 export class BunnyComponent{
-bunny: Observable<Bunny | undefined> | undefined;
+bunny: Observable<Bunny & { id: string; } | undefined> | undefined;
 bunnies: Observable<any> | undefined;
 @Input() bunnyId: string | undefined;
+friends: string[] = [];
+private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
+
 
 
   constructor(private activatedRoute: ActivatedRoute, private firebaseApp: FirebaseApp, 
     private db: AngularFireDatabase, private store: AngularFirestore, private app: AppComponent) { }
 
   ngOnInit(): void {
-    this.bunnies = this.store.collection('bunnies').snapshotChanges().pipe(
-      map(snap => {
-      return snap.map(a => {
-          const data = a.payload.doc.data;
-          const id = a.payload.doc.id;
-
-          return { id, ...data };
-      }).filter(a => a.id!=this.bunnyId);
-      })
+  this.bunnies = this.store.collection('bunnies').valueChanges({idField: 'id'}).pipe(
+    map(snap => 
+      snap.filter(a => a.id!=this.bunnyId)));
+  this.bunnyRef =  this.store.doc<Bunny>(`bunnies/${this.bunnyId}/friends`)
+  this.bunny =this.bunnyRef.valueChanges({idField: 'id'});
+ this.bunnyRef.valueChanges({idField: 'id'}).pipe( map( b =>{
+    this.friends = b?.friends
+    })
   );
-    this.bunny =  this.store.collection<Bunny>('bunnies').doc(this.bunnyId).valueChanges();
-  }
-  
 
-  feed(veg: string){
+
+  }
+
+  async deleteBunny() {
+    // const eventsPath = this.store.collection(`bunnies/${this.bunnyId}/events`);
+    const friendsPath = this.store.collection(`bunnies/${this.bunnyId}/friends`);
+    const docPath = this.store.collection('bunnies').doc(this.bunnyId);
+    const batch = this.store.firestore.batch();
+
+    // let events = await eventsPath.get().toPromise();
+    //   console.log(events);
+    //   events?.docs.forEach((doc) => {
+    //     console.log("events in bunny", doc.id)
+    //     batch.delete(doc.ref);
+    //   })
+    
+      let playmates = await friendsPath.get().toPromise();
+      console.log(friendsPath);
+      playmates?.docs.forEach((doc) => {
+        console.log("playmates of bunny", doc.id)
+        batch.delete(doc.ref);
+      })
+
+    batch.delete(docPath.ref);
+
+    await batch.commit().then(v => {
+      console.log("deleted bunny ", this.bunny);
+    }).catch(err => {
+      console.log("error deleting bunny ", err);
+    });
+    this.app.selectedBunnyid = undefined;
+
+  }
+
+
+  async feed(veg: string){
     const totalRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/totalPoints`);
     if(veg==='Carrot'){
-      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/carrots`);
-      statRef.transaction(stat => stat + 1);
-      totalRef.transaction(stat => stat + 3);
+       await this.bunnyRef?.update({carrots: increment(1), totalPoints: increment(3)}).then(v => {
+        console.log("Yummy Carrot ", this.bunny);
+      }).catch(err => {
+        console.log("error carrot not recieved ", err);
+      });
 
     }
     else{
-      const statRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/lettuse`);
-      statRef.transaction(stat => stat + 1);
-      totalRef.transaction(stat => stat + 1);
+
+      await this.bunnyRef?.update({lettuse: increment(1), totalPoints: increment(1)}).then(v => {
+        console.log("Yummy Lettuse" , this.bunny);
+      }).catch(err => {
+        console.log("error lettuce not recieved ", err);
+      });
     } 
 
   }
   
-  play(id: string){
-    const bunny1tatRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}`);
-    const bunny2tatRef = this.firebaseApp.database().ref(`/bunnies/${id}`);
-
-    bunny1tatRef.transaction(bunny1 => {
-        if(bunny1.friends.has(id)){
-          bunny1.playsWithFriend = this.getIncreasedStat( () => bunny1.playsWithFriend, 1);
-          bunny1.totalPoints = this.getIncreasedStat( () => bunny1.totalPoints, 4);
-          bunny2tatRef.transaction(bunny2 => {
-            bunny2.playsWithFriend = this.getIncreasedStat( () => bunny2.playsWithFriend, 1);
-            bunny2.totalPoints = this.getIncreasedStat( () => bunny2.totalPoints, 4);
-            return bunny2;
-          });
-        }
-        else{
-          bunny1.friends[id] = true;
-          bunny1.plays = this.getIncreasedStat( () => bunny1.play, 1);
-          bunny1.totalPoints = this.getIncreasedStat( () => bunny1.totalPoints, 2);
-          bunny2tatRef.transaction(bunny2 => {
-            bunny2.friends[bunny1.id] = true;
-            bunny2.plays = this.getIncreasedStat( () => bunny2.play, 1);
-            bunny2.totalPoints = this.getIncreasedStat( () => bunny2.totalPoints, 2);
-            return bunny2;
-          });
-        }
-      
-      return bunny1;
-    });
+ async play(id: string){
+    const friendRef = this.store.doc<Bunny>(`bunnies/${id}`)
+    if(this.friends?.find(f=> f ===id)){
+      await this.bunnyRef?.update({playsWithFriends: increment(1), totalPoints: increment(4)}).then(v => {
+        console.log("playing with friend is fun! ", this.bunny);
+      }).catch(err => {
+        console.log("Where did he go??? ", err);
+      });
+      await friendRef?.update({playsWithFriends: increment(1), totalPoints: increment(4)}).then(v => {
+        console.log("playing with friend is fun! ", this.bunny);
+      }).catch(err => {
+        console.log("Where did he go??? ", err);
+      });
+    }
+    else{
+      await this.bunnyRef?.update({friends: arrayUnion(id), plays: increment(1), totalPoints: increment(2)}).then(v => {
+        console.log("Hey new buddy! ", this.bunny);
+      }).catch(err => {
+        console.log("Where did he go??? ", err);
+      });
+      await friendRef?.update({friends: arrayUnion(this.bunnyId), plays: increment(1), totalPoints: increment(2)}).then(v => {
+        console.log("Hey new buddy! ", this.bunny);
+      }).catch(err => {
+        console.log("Where did he go??? ", err);
+      });   
+    }
   }
 
-  getIncreasedStat(statGetter: () => number , modifier: number): any {
-    return statGetter() + modifier;
-  }
 
   closeBunny(){
     this.app.selectedBunnyid = undefined;
 }
+
+
+
+ngOnDestroy() {
+
+  }
 }
+
+
+

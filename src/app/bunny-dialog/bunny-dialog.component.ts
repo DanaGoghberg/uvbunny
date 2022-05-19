@@ -16,7 +16,17 @@ export class BunnyDialogComponent {
     this.data.bunny.name = this.backupBunny.name;
     this.dialogRef.close(this.data);
   }
+  ok(): void {
+    if(!this.data.bunny.name){
+      console.log("Bunny has to have a name, he's special:)")
+      return;
+    }
+    else
+    this.dialogRef.close(this.data);
+  }
+  
 }
+
 
 export interface BunnyDialogData {
   bunny: Partial<Bunny>;

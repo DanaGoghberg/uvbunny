@@ -6,9 +6,12 @@
 
 .bunny-comp{
     display:flex;
+    z-index: 30;
+    position: absolute;
 }
 
 .configurations{
     color: accent;
     z-index: 100;
+    position: relative;
 }

@@ -2,6 +2,9 @@
   <button class="close" mat-button (click)="closeBunny()">
     <mat-icon>close</mat-icon>
   </button>
+  <button class="delete" mat-button (click)="deleteBunny()">
+    <mat-icon>delete_outline</mat-icon>
+  </button>
     <mat-card class="item" *ngIf="bunny | async; let bunny; else loading">
     <mat-card-title class="title">{{bunny.name}}</mat-card-title>
      <img src="assets/images/happy.png"  width="150" height="170">
@@ -22,6 +25,6 @@
 
 <mat-menu #friendsMenu="matMenu">
     <ng-template matMenuContent>
-      <button *ngFor="let friend of bunnies | async"  mat-menu-item (click)="play(friend.id)">{{friend.name}}</button>
+      <button  *ngFor="let friend of bunnies | async"  mat-menu-item (click)="play(friend.id)">{{friend.name}}</button>
     </ng-template>
   </mat-menu>

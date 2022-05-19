@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable ,BehaviorSubject, map} from 'rxjs';
+import { Observable ,BehaviorSubject, map, tap} from 'rxjs';
 import { Bunny } from '../bunny/bunny'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,24 +20,28 @@ const getObservable = (collection: AngularFirestoreCollection<Bunny>) => {
 })
 export class BunniesComponent{
   bunnies: Observable<any> | undefined;
-
+  averageHappiness = 0;
+  bunniesWithImage: Observable<any> | undefined;
   constructor( private dialog: MatDialog, private store: AngularFirestore) { 
-    // this.bunnies = store.collection<Bunny>('bunnies').snapshotChanges();
-    // this.bunnies = this.store.collection('bunnies').snapshotChanges().pipe(map(actions => actions.map(a => {a.payload.doc.data, id: a.payload.doc.id})));
-    
-   const bunniesCollection = this.store.collection('bunnies')
-    this.bunnies = bunniesCollection.snapshotChanges().pipe(
-      map(snap => {
-      return snap.map(a => {
-          const data = a.payload.doc.data;
-          const id = a.payload.doc.id;
-
-          return { id, ...data };
-      });
-      })
-  );
-
+      this.bunnies = this.store.collection('bunnies', ref => ref.orderBy('totalPoints','asc')).valueChanges({idField: 'id'});
+      this.bunniesWithImage = this.bunnies.pipe(
+        map(bunnies =>  bunnies.map((b:any) => (
+          {id: b.id, data: b, image: this.setImage(b.totalPoints)}
+        )
+        ))
+      );
+        //   this.getAvrg();
   } 
+  setImage(happiness: number) {
+ // set the emoji according to happiness points
+ if(happiness === undefined)  return ""
+  if(happiness <= this.averageHappiness - 15) {
+    return "assets/images/sad.png"
+  } else if(happiness >= this.averageHappiness + 20) {
+    return "assets/images/happy.png"
+  } else 
+    return "assets/images/content.png"
+}  
 
    // create new Bunny!
    addBunny(): void {
@@ -60,11 +64,13 @@ export class BunniesComponent{
         if (!result) {
           return;
         }
+        if (!result.bunny.name) {
+          console.log("Bunny has to have a name, he's special:)")
+          return;
+        }
         this.store.collection('bunnies').add(result.bunny);
       });
   }
 
 }
-
-
 

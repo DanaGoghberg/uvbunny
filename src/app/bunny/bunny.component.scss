@@ -1,9 +1,9 @@
 :host {
     display: flex;
-    width: 160vw;
+    width: 180vw;
     text-align: center;
-    padding-left: 32vw;
-    padding-top: 2vw;
+    padding-left: 35vw;
+    padding-top: 5vw;
 
   }
   
@@ -29,5 +29,10 @@
 }
 
 .actions{
-  padding-top: 2vw;
+  padding: 2vw;
+}
+
+.delete{
+  float: left;  
+  z-index: 10;
 }

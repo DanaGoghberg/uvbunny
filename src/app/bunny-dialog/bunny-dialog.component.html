@@ -4,6 +4,6 @@
   </mat-form-field>
    
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="{ bunny: data.bunny }">OK</button>
+    <button mat-button (click)="ok()">OK</button>
     <button mat-button (click)="cancel()">Cancel</button>
   </div>

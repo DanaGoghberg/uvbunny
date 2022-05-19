@@ -11,7 +11,6 @@ import 'hammerjs'
 /* Angular Fire */
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-// Environment configuration
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,15 +22,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { FormsModule } from '@angular/forms';
-import { environment } from 'src/environments/environment';
 import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-
+// Environment configuration
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,

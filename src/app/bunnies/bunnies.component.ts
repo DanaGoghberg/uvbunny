@@ -30,7 +30,7 @@ export class BunniesComponent{
         )
         ))
       );
-    this.averageHappiness = this.store.doc<any>(`bunnies/averageDoc`).valueChanges()
+    this.averageHappiness = this.store.doc<any>(`bunnies/averageDoc`).valueChanges();
   } 
   
 async setImage(happiness: number) {
@@ -73,9 +73,5 @@ async setImage(happiness: number) {
         this.store.collection('bunnies').add(result.bunny);
       });
   }
-
-   async average(){
-  return (await this.store.doc<any>(`bunnies/averageDoc`)?.ref.get()).data().average
- }
 }
 

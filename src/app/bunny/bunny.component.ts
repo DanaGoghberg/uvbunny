@@ -18,7 +18,7 @@ import {  arrayUnion, increment, setDoc } from "firebase/firestore";
 export class BunnyComponent{
 bunny: Observable<Bunny & { id: string; } | undefined> | undefined;
 bunnies: Observable<any> | undefined;
-points: Observable<any> | undefined;
+  pointsRef!: AngularFirestoreDocument<any>;
 @Input() bunnyId: string | undefined;
 private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
 
@@ -33,7 +33,7 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
       snap.filter(a => a.id!=this.bunnyId)));
   this.bunnyRef =  this.store.doc<Bunny>(`bunnies/${this.bunnyId}`);
   this.bunny =this.bunnyRef.valueChanges({idField: 'id'});
-  this.points =  this.store.doc(`config/points`).valueChanges();
+  this.pointsRef =  this.store.doc(`config/points`);
 
   }
 
@@ -70,9 +70,9 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
 
 
   async feed(veg: string){
-    const totalRef = this.firebaseApp.database().ref(`/bunnies/${this.bunnyId}/totalPoints`);
+    const points  =  (await this.pointsRef.ref.get()).data();
     if(veg==='Carrot'){
-       await this.bunnyRef?.update({carrots: increment(1), totalPoints: increment(3)}).then(v => {
+       await this.bunnyRef?.update({carrots: increment(1), totalPoints: increment(points.carrot)}).then(v => {
         console.log("Yummy Carrot ", this.bunny);
       }).catch(err => {
         console.log("error carrot not recieved ", err);
@@ -81,7 +81,7 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
     }
     else{
 
-      await this.bunnyRef?.update({lettuse: increment(1), totalPoints: increment(1)}).then(v => {
+      await this.bunnyRef?.update({lettuse: increment(1), totalPoints: increment(points.lettuse)}).then(v => {
         console.log("Yummy Lettuse" , this.bunny);
       }).catch(err => {
         console.log("error lettuce not recieved ", err);
@@ -94,14 +94,14 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
     const friendRef = this.store.doc<Bunny>(`bunnies/${id}`);
     const bunnyRef = this.store.doc<Bunny>(`bunnies/${this.bunnyId}`);
     const batch = this.store.firestore.batch();
-
+    const points  =  (await this.pointsRef.ref.get()).data();
     if( (await bunnyRef.ref.get()).data()?.friends.find((f: string)=> f ===id)){
-      batch.update(bunnyRef?.ref, {playsWithFriends: increment(1), totalPoints: increment(4)});
-      batch.update(friendRef?.ref, {playsWithFriends: increment(1), totalPoints: increment(4)});
+      batch.update(bunnyRef?.ref, {playsWithFriends: increment(1), totalPoints: increment(points.playFriend)});
+      batch.update(friendRef?.ref, {playsWithFriends: increment(1), totalPoints: increment(points.playFriend)});
     }
     else{
-      batch.update(bunnyRef?.ref,{friends: arrayUnion(id), plays: increment(1), totalPoints: increment(2)});
-      batch.update(friendRef?.ref,{friends: arrayUnion(this.bunnyId), plays: increment(1), totalPoints: increment(2)});
+      batch.update(bunnyRef?.ref,{friends: arrayUnion(id), plays: increment(1), totalPoints: increment(points.playFirst)});
+      batch.update(friendRef?.ref,{friends: arrayUnion(this.bunnyId), plays: increment(1), totalPoints: increment(points.playFirst)});
   }
   await batch.commit().then(v => {
     console.log("bunnies played  ", this.bunny);

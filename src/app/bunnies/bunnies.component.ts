@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable ,BehaviorSubject, map, tap} from 'rxjs';
 import { Bunny } from '../bunny/bunny'
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { BunnyDialogComponent, BunnyDialogResult } from '../bunny-dialog/bunny-dialog.component';
 
@@ -20,7 +20,7 @@ const getObservable = (collection: AngularFirestoreCollection<Bunny>) => {
 })
 export class BunniesComponent{
   bunnies: Observable<any> | undefined;
-  averageHappiness = 0;
+  averageHappiness: Observable<any> | undefined;
   bunniesWithImage: Observable<any> | undefined;
   constructor( private dialog: MatDialog, private store: AngularFirestore) { 
       this.bunnies = this.store.collection('bunnies', ref => ref.orderBy('totalPoints','asc')).valueChanges({idField: 'id'});
@@ -30,14 +30,16 @@ export class BunniesComponent{
         )
         ))
       );
-        //   this.getAvrg();
+    this.averageHappiness = this.store.doc<any>(`bunnies/averageDoc`).valueChanges()
   } 
-  setImage(happiness: number) {
+  
+async setImage(happiness: number) {
  // set the emoji according to happiness points
+  const average = (await this.store.doc<any>(`bunnies/averageDoc`).ref.get()).data()?.average
  if(happiness === undefined)  return ""
-  if(happiness <= this.averageHappiness - 15) {
+  if(happiness <= average - 15) {
     return "assets/images/sad.png"
-  } else if(happiness >= this.averageHappiness + 20) {
+  } else if(happiness >= average + 20) {
     return "assets/images/happy.png"
   } else 
     return "assets/images/content.png"
@@ -72,5 +74,8 @@ export class BunniesComponent{
       });
   }
 
+   async average(){
+  return (await this.store.doc<any>(`bunnies/averageDoc`)?.ref.get()).data().average
+ }
 }
 

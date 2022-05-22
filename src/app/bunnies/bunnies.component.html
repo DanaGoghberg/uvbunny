@@ -3,7 +3,7 @@
       <button class='add-bunny'mat-raised-button color="accent"(click)="addBunny()" mat-button>
       <mat-icon>add</mat-icon> Add new Bunny
     </button>
-    <h1 TODO class="average">Average Happiness</h1>
+    <h1 TODO class="average">Average Happiness: {{(averageHappiness|async).average}}</h1>
 
 
     <h1 class="title">My Bunnies</h1>

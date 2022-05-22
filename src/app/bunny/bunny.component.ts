@@ -18,7 +18,7 @@ import {  arrayUnion, increment, setDoc } from "firebase/firestore";
 export class BunnyComponent{
 bunny: Observable<Bunny & { id: string; } | undefined> | undefined;
 bunnies: Observable<any> | undefined;
-  pointsRef!: AngularFirestoreDocument<any>;
+pointsRef!: AngularFirestoreDocument<any>;
 @Input() bunnyId: string | undefined;
 private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
 

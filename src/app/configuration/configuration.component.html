@@ -14,33 +14,33 @@
         <mat-grid-tile>
         <mat-form-field appearance="fill">         
           <mat-label>Carrot Points</mat-label>
-          <input matInput type="number" autocomplete="off" value="config.carrot" #poins>
+          <input matInput type="number" autocomplete="off" value="config.carrot" #pointscar>
         </mat-form-field>        
-        <button mat-stroked-button (click)="carrot(poins.value)">Save</button>
+        <button mat-stroked-button (click)="carrot(pointscar.value)">Save</button>
           </mat-grid-tile>
           
         <mat-grid-tile>
         <mat-form-field appearance="fill">         
           <mat-label>Lettuse Points</mat-label>
-          <input matInput type="number"  autocomplete="off" value="config.lettuse" #poins>
+          <input matInput type="number"  autocomplete="off" value="config.lettuse" #pointslet>
         </mat-form-field>        
-        <button mat-stroked-button (click)="lettuse(poins.value)">Save</button>
+        <button mat-stroked-button (click)="lettuse(pointslet.value)">Save</button>
       </mat-grid-tile>
 
         <mat-grid-tile>
         <mat-form-field appearance="fill">
           <mat-label>First Game Points</mat-label>
-          <input matInput type="number" autocomplete="off" value="config.playFirst" #poins>
+          <input matInput type="number" autocomplete="off" value="config.playFirst" #pointsfir>
         </mat-form-field>        
-        <button mat-stroked-button (click)="playFirst(poins.value)">Save</button> 
+        <button mat-stroked-button (click)="playFirst(pointsfir.value)">Save</button> 
       </mat-grid-tile>
           <mat-grid-tile>
 
         <mat-form-field appearance="fill">
           <mat-label>Game with Friend Points</mat-label>
-          <input matInput type="number" autocomplete="off" value="config.playFriend" #poins>
+          <input matInput type="number" autocomplete="off" value="config.playFriend" #pointssec>
         </mat-form-field>        
-        <button mat-stroked-button (click)="playFriend(poins.value)">Save</button>
+        <button mat-stroked-button (click)="playFriend(pointssec.value)">Save</button>
       </mat-grid-tile>
 
     </mat-grid-list>       

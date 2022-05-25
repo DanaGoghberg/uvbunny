@@ -41,18 +41,11 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
     const friendsPath = this.store.collection(`bunnies/${this.bunnyId}/friends`);
     const docPath = this.store.collection('bunnies').doc(this.bunnyId);
     const batch = this.store.firestore.batch();
-
-    // let events = await eventsPath.get().toPromise();
-    //   console.log(events);
-    //   events?.docs.forEach((doc) => {
-    //     console.log("events in bunny", doc.id)
-    //     batch.delete(doc.ref);
-    //   })
-    
-      let playmates = await friendsPath.get().toPromise();
+  
+      let friends = await friendsPath.get().toPromise();
       console.log(friendsPath);
-      playmates?.docs.forEach((doc) => {
-        console.log("playmates of bunny", doc.id)
+      friends?.docs.forEach((doc) => {
+        console.log("friends of bunny", doc.id)
         batch.delete(doc.ref);
       })
 

@@ -113,6 +113,10 @@ async function updateAvg(change:number, fix: string) {
     try {
       // eslint-disable-next-line space-before-blocks
       let newAv = 0;
+      if (amountOfBunnies==0 ) {
+        await avFer.update({average: 0});
+        return;
+      }
       switch (fix) {
         case "update": {
           newAv=(((amountOfBunnies*currAverage)+change) / amountOfBunnies);
@@ -127,6 +131,7 @@ async function updateAvg(change:number, fix: string) {
           break;
         }
       }
+
       await avFer.update({average: newAv});
       // eslint-disable-next-line max-len
       functions.logger.log("new average after update", (await avFer.get())?.data()?.average);

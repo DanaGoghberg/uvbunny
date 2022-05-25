@@ -23,7 +23,7 @@ export class BunniesComponent{
   averageHappiness: Observable<any> | undefined;
   bunniesWithImage: Observable<any> | undefined;
   constructor( private dialog: MatDialog, private store: AngularFirestore) { 
-      this.bunnies = this.store.collection('bunnies', ref => ref.orderBy('totalPoints','asc')).valueChanges({idField: 'id'});
+      this.bunnies = this.store.collection('bunnies', ref => ref.orderBy('totalPoints','desc')).valueChanges({idField: 'id'});
       this.bunniesWithImage = this.bunnies.pipe(
         map(bunnies =>  bunnies.map((b:any) => (
           {id: b.id, data: b, image: this.setImage(b.totalPoints)}

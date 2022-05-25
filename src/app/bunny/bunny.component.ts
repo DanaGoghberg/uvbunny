@@ -7,6 +7,7 @@ import { map, Observable, switchMap } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { FirebaseApp } from '@angular/fire/compat';
 import {  arrayUnion, increment, setDoc } from "firebase/firestore";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -15,6 +16,7 @@ import {  arrayUnion, increment, setDoc } from "firebase/firestore";
   styleUrls: ['./bunny.component.scss']
 })
 export class BunnyComponent{
+durationInSeconds = 5;
 bunny: Observable<Bunny & { id: string; } | undefined> | undefined;
 bunnies: Observable<any> | undefined;
 pointsRef!: AngularFirestoreDocument<any>;
@@ -23,7 +25,7 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
 
 
 
-  constructor(private activatedRoute: ActivatedRoute, private firebaseApp: FirebaseApp, 
+  constructor(private _snackBar: MatSnackBar, private firebaseApp: FirebaseApp, 
     private db: AngularFireDatabase, private store: AngularFirestore, private app: AppComponent) { }
 
   ngOnInit(): void {
@@ -70,6 +72,7 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
       }).catch(err => {
         console.log("error carrot not recieved ", err);
       });
+      this._snackBar.open('Yummy Carrot!!!');
 
     }
     else{
@@ -78,13 +81,13 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
       }).catch(err => {
         console.log("error lettuce not recieved ", err);
       });
+      this._snackBar.open('Yummy Lettuse!!!');
     } 
   }
   catch(err){
     console.log("Error: " + err);
 
   }
-
   }
   
  async play(id: string){
@@ -96,11 +99,13 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
     if( (await bunnyRef.ref.get()).data()?.friends.find((f: string)=> f ===id)){
       batch.update(bunnyRef?.ref, {playFriend: increment(1), totalPoints: increment(points.playFriend)});
       batch.update(friendRef?.ref, {playFriend: increment(1), totalPoints: increment(points.playFriend)});
+      this._snackBar.open('Love playing with friends!!!');
     }
     else{
       batch.update(bunnyRef?.ref,{friends: arrayUnion(id), playFirst: increment(1), totalPoints: increment(points.playFirst)});
       batch.update(friendRef?.ref,{friends: arrayUnion(this.bunnyId), playFirst: increment(1), totalPoints: increment(points.playFirst)});
-  }
+      this._snackBar.open('Hey there hommie!!!');
+    }
     await batch.commit().then(v => {
       console.log("bunnies played  ", this.bunny);
     }).catch(err => {

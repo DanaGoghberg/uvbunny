@@ -12,8 +12,8 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.selectedBunnyid =  undefined;  
-    this.store.doc("config/averageDoc").set({average: 0});
-    this.store.doc("config/points").set({carrot: 3, lettuse: 1, playFirst: 2, platFriend: 4});
+    // this.store.doc("config/averageDoc").set({average: 0});
+    // this.store.doc("config/points").set({carrot: 3, lettuse: 1, playFirst: 2, platFriend: 4});
 
   }
   onConfig(){}

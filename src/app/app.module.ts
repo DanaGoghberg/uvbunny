@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { FormsModule } from '@angular/forms';
 import { BunnyStatusComponent } from './bunny-status/bunny-status.component';
@@ -47,6 +48,7 @@ import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functio
     BrowserModule,
     MatToolbarModule,
     MatGridListModule,
+    MatSnackBarModule,
     MatIconModule,
     MatCardModule,
     DragDropModule,

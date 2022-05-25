@@ -30,12 +30,12 @@ export class BunniesComponent{
         )
         ))
       );
-    this.averageHappiness = this.store.doc<any>(`bunnies/averageDoc`).valueChanges();
+    this.averageHappiness = this.store.doc<any>(`config/averageDoc`).valueChanges();
   } 
   
 async setImage(happiness: number) {
  // set the emoji according to happiness points
-  const average = (await this.store.doc<any>(`bunnies/averageDoc`).ref.get()).data()?.average
+  const average = (await this.store.doc<any>(`config/averageDoc`).ref.get()).data()?.average
  if(happiness === undefined)  return ""
   if(happiness <= average - 15) {
     return "assets/images/sad.png"
@@ -52,11 +52,11 @@ async setImage(happiness: number) {
       data: {
         bunny: {
           totalPoints : 0,
-          players :[],
-          carrots: 0,
+          friends :[],
+          carrot: 0,
           lettuse: 0,
-          plays :0,
-          playsWithFriend:  0
+          playFirst :0,
+          playFriend:  0
         },
       },
     });

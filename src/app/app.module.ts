@@ -30,6 +30,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
 // Environment configuration
 import { environment } from 'src/environments/environment';
+import { USE_EMULATOR as FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
+import { USE_EMULATOR as DATABASE_EMULATOR } from '@angular/fire/compat/database';
+import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +63,20 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: FIRESTORE_EMULATOR,
+      useValue: environment.production ? undefined : ['localhost', 5002],
+    },
+    {
+      provide: DATABASE_EMULATOR, // i.e., Realtime Database
+      useValue: environment.production ? undefined : ['localhost', 5003],
+    },
+    {
+      provide: FUNCTIONS_EMULATOR,
+      useValue: environment.production ? undefined : ['localhost', 5006],
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

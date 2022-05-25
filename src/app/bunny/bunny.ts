@@ -2,18 +2,18 @@ import { FieldValue } from 'firebase/firestore';
 
 export class Bunny {
 	totalPoints : any ;
-	carrots : any ;
+	carrot : any ;
 	lettuse : any ;
-	plays  : any ;
-    playsWithFriends : any ;
+	playFirst  : any ;
+    playFriend : any ;
 	friends: any;
 
     constructor(public name: string) {
 		this.totalPoints = 0;
-		this.carrots = 0;
+		this.carrot = 0;
 		this.lettuse = 0;
-		this.plays = 0;
-    	this.playsWithFriends=  0;
+		this.playFirst = 0;
+    	this.playFriend=  0;
 		this.friends = [];
 	}
 }

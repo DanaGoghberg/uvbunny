@@ -5,7 +5,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument,
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/compat/database';
 import { map, Observable, switchMap } from 'rxjs';
 import { AppComponent } from '../app.component';
-// import { FirebaseApp } from '@angular/fire/app';
 import { FirebaseApp } from '@angular/fire/compat';
 import {  arrayUnion, increment, setDoc } from "firebase/firestore";
 
@@ -70,9 +69,10 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
 
 
   async feed(veg: string){
+    try{
     const points  =  (await this.pointsRef.ref.get()).data();
     if(veg==='Carrot'){
-       await this.bunnyRef?.update({carrots: increment(1), totalPoints: increment(points.carrot)}).then(v => {
+       await this.bunnyRef?.update({carrot: increment(1), totalPoints: increment(points.carrot)}).then(v => {
         console.log("Yummy Carrot ", this.bunny);
       }).catch(err => {
         console.log("error carrot not recieved ", err);
@@ -80,13 +80,17 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
 
     }
     else{
-
       await this.bunnyRef?.update({lettuse: increment(1), totalPoints: increment(points.lettuse)}).then(v => {
         console.log("Yummy Lettuse" , this.bunny);
       }).catch(err => {
         console.log("error lettuce not recieved ", err);
       });
     } 
+  }
+  catch(err){
+    console.log("Error: " + err);
+
+  }
 
   }
   
@@ -94,21 +98,26 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
     const friendRef = this.store.doc<Bunny>(`bunnies/${id}`);
     const bunnyRef = this.store.doc<Bunny>(`bunnies/${this.bunnyId}`);
     const batch = this.store.firestore.batch();
+    try{
     const points  =  (await this.pointsRef.ref.get()).data();
     if( (await bunnyRef.ref.get()).data()?.friends.find((f: string)=> f ===id)){
-      batch.update(bunnyRef?.ref, {playsWithFriends: increment(1), totalPoints: increment(points.playFriend)});
-      batch.update(friendRef?.ref, {playsWithFriends: increment(1), totalPoints: increment(points.playFriend)});
+      batch.update(bunnyRef?.ref, {playFriend: increment(1), totalPoints: increment(points.playFriend)});
+      batch.update(friendRef?.ref, {playFriend: increment(1), totalPoints: increment(points.playFriend)});
     }
     else{
-      batch.update(bunnyRef?.ref,{friends: arrayUnion(id), plays: increment(1), totalPoints: increment(points.playFirst)});
-      batch.update(friendRef?.ref,{friends: arrayUnion(this.bunnyId), plays: increment(1), totalPoints: increment(points.playFirst)});
+      batch.update(bunnyRef?.ref,{friends: arrayUnion(id), playFirst: increment(1), totalPoints: increment(points.playFirst)});
+      batch.update(friendRef?.ref,{friends: arrayUnion(this.bunnyId), playFirst: increment(1), totalPoints: increment(points.playFirst)});
   }
-  await batch.commit().then(v => {
-    console.log("bunnies played  ", this.bunny);
-  }).catch(err => {
-    console.log("error playing with bunny ", err);
-  });
-}
+    await batch.commit().then(v => {
+      console.log("bunnies played  ", this.bunny);
+    }).catch(err => {
+      console.log("error playing with bunny ", err);
+    });
+  } 
+  catch(err){
+  console.log("Error: " + err);
+  }
+ }
 
 closeBunny(){
     this.app.selectedBunnyid = undefined;

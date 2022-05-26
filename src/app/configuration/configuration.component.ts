@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseApp } from '@angular/fire/compat';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-configuration',
@@ -10,12 +11,15 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent implements OnInit {
+  config: Observable<any> | undefined;
 
   constructor(private _snackBar: MatSnackBar,
     private store: AngularFirestore) { }
 
   ngOnInit(): void {
+    this.config = this.store.collection('config').doc('points').valueChanges();  
   }
+  
   carrot(amount: string) {
    this.store.doc(`config/points`).update({carrot: Number(amount)});
     this._snackBar.open("Carrot points were updated to " + amount, '',{

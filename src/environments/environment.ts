@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  emulator: true,
+  emulator: false ,
 
     // Firebase configuration
     firebase: {

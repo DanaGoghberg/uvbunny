@@ -68,15 +68,15 @@ import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functio
   providers: [
     {
       provide: FIRESTORE_EMULATOR,
-      useValue: environment.production ? undefined : ['localhost', 5002],
+      useValue: !environment.emulator ? undefined : ['localhost', 5002],
     },
     {
       provide: DATABASE_EMULATOR, // i.e., Realtime Database
-      useValue: environment.production ? undefined : ['localhost', 5003],
+      useValue: !environment.emulator ? undefined : ['localhost', 5003],
     },
     {
       provide: FUNCTIONS_EMULATOR,
-      useValue: environment.production ? undefined : ['localhost', 5006],
+      useValue: !environment.emulator ? undefined : ['localhost', 5006],
     },
   ],
   bootstrap: [AppComponent]

@@ -14,7 +14,7 @@
         <mat-grid-tile>
         <mat-form-field appearance="fill">         
           <mat-label>Carrot Points</mat-label>
-          <input matInput type="number" autocomplete="off" value="config.carrot" #pointscar>
+          <input matInput type="number" autocomplete="off" [ngModel]="(config |async)?.carrot" #pointscar>
         </mat-form-field>        
         <button mat-stroked-button (click)="carrot(pointscar.value)">Save</button>
           </mat-grid-tile>
@@ -22,7 +22,7 @@
         <mat-grid-tile>
         <mat-form-field appearance="fill">         
           <mat-label>Lettuse Points</mat-label>
-          <input matInput type="number"  autocomplete="off" value="config.lettuse" #pointslet>
+          <input matInput type="number"  autocomplete="off" [ngModel]="(config |async)?.lettuse " #pointslet>
         </mat-form-field>        
         <button mat-stroked-button (click)="lettuse(pointslet.value)">Save</button>
       </mat-grid-tile>
@@ -30,7 +30,7 @@
         <mat-grid-tile>
         <mat-form-field appearance="fill">
           <mat-label>First Game Points</mat-label>
-          <input matInput type="number" autocomplete="off" value="config.playFirst" #pointsfir>
+          <input matInput type="number" autocomplete="off" [ngModel]="(config |async)?.playFirst" #pointsfir>
         </mat-form-field>        
         <button mat-stroked-button (click)="playFirst(pointsfir.value)">Save</button> 
       </mat-grid-tile>
@@ -38,7 +38,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Game with Friend Points</mat-label>
-          <input matInput type="number" autocomplete="off" value="config.playFriend" #pointssec>
+          <input matInput type="number" autocomplete="off" [ngModel]="(config |async)?.playFriend" #pointssec>
         </mat-form-field>        
         <button mat-stroked-button (click)="playFriend(pointssec.value)">Save</button>
       </mat-grid-tile>

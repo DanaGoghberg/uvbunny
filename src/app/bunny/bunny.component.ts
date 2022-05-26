@@ -17,6 +17,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class BunnyComponent{
 bunny: Observable<Bunny & { id: string; } | undefined> | undefined;
+bunnyData: Bunny| undefined
 bunnies: Observable<any> | undefined;
 pointsRef!: AngularFirestoreDocument<any>;
 @Input() bunnyId: string | undefined;
@@ -27,32 +28,30 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
   constructor(private _snackBar: MatSnackBar, private firebaseApp: FirebaseApp, 
     private db: AngularFireDatabase, private store: AngularFirestore, private app: AppComponent) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
   this.bunnies = this.store.collection('bunnies').valueChanges({idField: 'id'}).pipe(
     map(snap => 
       snap.filter(a => a.id!=this.bunnyId)));
   this.bunnyRef =  this.store.doc<Bunny>(`bunnies/${this.bunnyId}`);
   this.bunny =this.bunnyRef.valueChanges({idField: 'id'});
   this.pointsRef =  this.store.doc(`config/points`);
-
+  this.bunnyData = (await (this.store.doc<Bunny>(`bunnies/${this.bunnyId}`).ref.get())).data()
   }
 
 
-  // async statusPhoto() {     
-  //    try {
-  //     const points = (await this.bunnyRef?.ref.get())?.data()?.totalPoints;
-  //     if (points > 50) {
-  //       return "assets/images/happy.png"
-  //     } else if (points > 25) {
-  //       return "assets/images/content.png"
-  //     } else {
-  //       return "assets/images/sad.png"
-  //     }
-  //    } catch (error) {
-  //      console.log(error);
-  //      return "assets/images/sad.png"
-  //    }
-  //   }
+  // async status() {     
+     
+  //     const points = (await  this.store.doc<Bunny>(`bunnies/${this.bunnyId}`).ref.get()).data()?.totalPoints;
+  //     const average = (await this.store.doc<any>(`config/averageDoc`).ref.get()).data()?.average
+  //     if(points === undefined)  return ""
+  //     if(points <= average - 15) {
+  //       return 'sad'
+  //     } else if(points >= average + 20) {
+  //       return 'happy'
+  //     } else 
+  //       return 'content'
+   
+  // }
 
   async deleteBunny() {
     // const eventsPath = this.store.collection(`bunnies/${this.bunnyId}/events`);

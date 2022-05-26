@@ -39,3 +39,29 @@
   float: left;  
   z-index: 10;
 }
+
+.bunny {
+  background-image: url('/assets/images/happy.png');  
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 170px;
+  margin-left: 10vw;
+}
+
+.bunny-sad {
+  background-image: url('/assets/images/sad.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 10vw;
+  width: 150px;
+  height: 170px;
+}
+.baby-content {
+  background-image: url('/assets/images/content.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 10vw;
+  width: 150px;
+  height: 170px;
+}

@@ -3,24 +3,30 @@ h1 {
 }
 
 .bunny {
-    width: 150px;
-    height: 150px;
-    // background-image: url('/Users/dana.g/uvbunny/src/app/assets/happy-bunny.png');
+    background-image: url('/assets/images/happy.png');  
     background-size: contain;
     background-repeat: no-repeat;
-    margin: 0 auto;
-}
-
-// .bunny-content {
-//     background-image: url('/Users/dana.g/uvbunny/src/app/assets/content.png');
-//     width: 150px;
-//     height: 150px;
-// }
-// .bunny-sad {
-//     background-image: url('/Users/dana.g/uvbunny/src/app/assets/sad-bunny.jpeg');
-//     width: 150px;
-//     height: 150px;
-// }
+    width: 150px;
+    height: 150px;
+    margin-left: 3vw;
+  }
+  
+  .bunny-sad {
+    background-image: url('/assets/images/sad.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 3vw;
+    width: 150px;
+    height: 150px;
+  }
+  .baby-content {
+    background-image: url('/assets/images/content.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 3vw;
+    width: 150px;
+    height: 150px;
+  }
 
 .status-indicator {
     margin: 12px 0;

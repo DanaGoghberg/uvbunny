@@ -17,6 +17,8 @@
   }
   .points{
     margin-bottom: 2vw;
+    margin-left: 2vw;
+
   }
 
   div.image {
@@ -46,14 +48,14 @@
   background-repeat: no-repeat;
   width: 150px;
   height: 170px;
-  margin-left: 10vw;
+  margin-left: 8vw;
 }
 
 .bunny-sad {
   background-image: url('/assets/images/sad.png');
   background-size: contain;
   background-repeat: no-repeat;
-  margin-left: 10vw;
+  margin-left: 8vw;
   width: 150px;
   height: 170px;
 }
@@ -61,7 +63,7 @@
   background-image: url('/assets/images/content.png');
   background-size: contain;
   background-repeat: no-repeat;
-  margin-left: 10vw;
+  margin-left: 8vw;
   width: 150px;
   height: 170px;
 }

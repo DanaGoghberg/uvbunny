@@ -127,7 +127,7 @@ async function updateAvg(change:number, fix: string) {
           break;
         }
         case "create": {
-          newAv= currAverage/amountOfBunnies;
+          newAv= ((amountOfBunnies-1)*currAverage)/amountOfBunnies;
           break;
         }
       }

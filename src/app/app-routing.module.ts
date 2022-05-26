@@ -6,15 +6,6 @@ import { BunnyComponent } from './bunny/bunny.component'
 
 const routes: Routes = [
   {
-    path: 'bunnies',
-    children: [
-      {
-        path: '',
-        component: BunniesComponent,
-      },
-    ],
-  },
-  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'bunnies',

@@ -13,7 +13,6 @@ export class BunnyStatusComponent implements OnInit {
 
   bunny: Observable<Bunny | undefined> | undefined;
   @Input() bunnyId$: Observable<string> | undefined;
-  @Input() image: string | undefined
   constructor(private store: AngularFirestore, private app: AppComponent) { }
 
   ngOnInit(): void {

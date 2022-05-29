@@ -86,14 +86,13 @@ async function updateAllBunnies(category: string,
       functions.logger.log("prevP and newP", beforePoints, afterPoints);
       const amount = (await bunny.get(category));
       const prevtotal = (await bunny.get("totalPoints"));
-      const newTotal = prevtotal-amount*beforePoints+amount*afterPoints;
+      const newTotal = prevtotal+amount*(afterPoints-beforePoints);
       functions.logger.log("prev and new", prevtotal, newTotal);
       promises.push(bunny.ref.update({totalPoints: newTotal}));
     });
-    return Promise.all(promises);
+    Promise.all(promises);
   } catch (error) {
     console.log(error);
-    return null;
   }
 }
 

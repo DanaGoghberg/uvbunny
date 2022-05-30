@@ -8,7 +8,6 @@
     <mat-card class="item" *ngIf="bunny | async; let bunny; else loading">
     <mat-card-title class="title">{{bunny.name}}</mat-card-title>
     <mat-card-title class="points">Happiness: {{bunny.totalPoints}}</mat-card-title>
-     <!-- <img src="assets/images/happy.png"  width="150" height="170"> -->
      <div class="bunny" [class.bunny-content]="bunny.totalPoints<50" [class.baby-sad]="bunny.totalPoints<25"></div>
      <mat-card-actions class="actions">
         <button color="primary" (click)="feed('Lettuse')" mat-raised-button>

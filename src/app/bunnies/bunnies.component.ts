@@ -45,8 +45,8 @@ async setImage(happiness: number) {
     return "assets/images/content.png"
 }  
 
-   // create new Bunny!
-   addBunny(): void {
+  // create new Bunny!
+  addBunny(): void {
     const dialogRef = this.dialog.open(BunnyDialogComponent, {
       width: '270px',
       data: {

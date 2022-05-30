@@ -29,84 +29,50 @@ private bunnyRef: AngularFirestoreDocument<Bunny>| undefined;
     private db: AngularFireDatabase, private store: AngularFirestore, private app: AppComponent) { }
 
   async ngOnInit(): Promise<void> {
-  this.bunnies = this.store.collection('bunnies').valueChanges({idField: 'id'}).pipe(
-    map(snap => 
-      snap.filter(a => a.id!=this.bunnyId)));
-  this.bunnyRef =  this.store.doc<Bunny>(`bunnies/${this.bunnyId}`);
-  this.bunny =this.bunnyRef.valueChanges({idField: 'id'});
-  this.pointsRef =  this.store.doc(`config/points`);
-  this.bunnyData = (await (this.store.doc<Bunny>(`bunnies/${this.bunnyId}`).ref.get())).data()
+    this.bunnies = this.store.collection('bunnies').valueChanges({idField: 'id'}).pipe(
+      map(snap => 
+        snap.filter(a => a.id!=this.bunnyId)));
+    this.bunnyRef =  this.store.doc<Bunny>(`bunnies/${this.bunnyId}`);
+    this.bunny =this.bunnyRef.valueChanges({idField: 'id'});
+    this.pointsRef =  this.store.doc(`config/points`);
+    this.bunnyData = (await (this.store.doc<Bunny>(`bunnies/${this.bunnyId}`).ref.get())).data()
   }
 
-
-  // async status() {     
-     
-  //     const points = (await  this.store.doc<Bunny>(`bunnies/${this.bunnyId}`).ref.get()).data()?.totalPoints;
-  //     const average = (await this.store.doc<any>(`config/averageDoc`).ref.get()).data()?.average
-  //     if(points === undefined)  return ""
-  //     if(points <= average - 15) {
-  //       return 'sad'
-  //     } else if(points >= average + 20) {
-  //       return 'happy'
-  //     } else 
-  //       return 'content'
-   
-  // }
-
   async deleteBunny() {
-    // const eventsPath = this.store.collection(`bunnies/${this.bunnyId}/events`);
-    const friendsPath = this.store.collection(`bunnies/${this.bunnyId}/friends`);
     const docPath = this.store.collection('bunnies').doc(this.bunnyId);
-    const batch = this.store.firestore.batch();
-  
-      let friends = await friendsPath.get().toPromise();
-      console.log(friendsPath);
-      friends?.docs.forEach((doc) => {
-        console.log("friends of bunny", doc.id)
-        batch.delete(doc.ref);
-      })
-
-    batch.delete(docPath.ref);
-
-    await batch.commit().then(v => {
-      console.log("deleted bunny ", this.bunny);
-    }).catch(err => {
-      console.log("error deleting bunny ", err);
-    });
+    docPath.delete();
     this.app.selectedBunnyid = undefined;
 
   }
 
-
   async feed(veg: string){
     try{
-    const points  =  (await this.pointsRef.ref.get()).data();
-    if(veg==='Carrot'){
-       await this.bunnyRef?.update({carrot: increment(1), totalPoints: increment(points.carrot)}).then(v => {
-        console.log("Yummy Carrot ", this.bunny);
-      }).catch(err => {
-        console.log("error carrot not recieved ", err);
-      });
-      this._snackBar.open('Yummy Carrot!!!' ,'',{
-        duration:2000
-      });
-    }
-    else{
-      await this.bunnyRef?.update({lettuse: increment(1), totalPoints: increment(points.lettuse)}).then(v => {
-        console.log("Yummy Lettuse" , this.bunny);
-      }).catch(err => {
-        console.log("error lettuce not recieved ", err);
-      });
-      this._snackBar.open('Yummy Lettuse!!!','',{
-        duration:2000
-      });
-    } 
+      const points  =  (await this.pointsRef.ref.get()).data();
+      if(veg==='Carrot'){
+        await this.bunnyRef?.update({carrot: increment(1), totalPoints: increment(points.carrot)}).then(v => {
+          console.log("Yummy Carrot ", this.bunny);
+        }).catch(err => {
+          console.log("error carrot not recieved ", err);
+        });
+        this._snackBar.open('Yummy Carrot!!!' ,'',{
+          duration:2000
+        });
+      }
+      else{
+        await this.bunnyRef?.update({lettuse: increment(1), totalPoints: increment(points.lettuse)}).then(v => {
+          console.log("Yummy Lettuse" , this.bunny);
+        }).catch(err => {
+          console.log("error lettuce not recieved ", err);
+        });
+        this._snackBar.open('Yummy Lettuse!!!','',{
+          duration:2000
+        });
+      } 
   }
   catch(err){
     console.log("Error: " + err);
-
   }
-  }
+}
   
  async play(id: string){
     const friendRef = this.store.doc<Bunny>(`bunnies/${id}`);
@@ -143,11 +109,6 @@ closeBunny(){
     this.app.selectedBunnyid = undefined;
 }
 
-
-
-ngOnDestroy() {
-
-  }
 }
 
 

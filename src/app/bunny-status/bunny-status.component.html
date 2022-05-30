@@ -1,7 +1,5 @@
 <section  class="status-section" (click)="openBunny()" *ngIf="bunny | async; let bunny; else loading">
 <h1>{{bunny.name}} </h1>
-<!-- TODO: <div class="bunny" [class.bunny-content]="status =='content'" [class.bunny-sad]="status =='sad'"></div> -->
-<!-- <img  class="bunny" src="assets/images/happy.png"> -->
 <div class="bunny" [class.bunny-content]="bunny.totalPoints<50" [class.baby-sad]="bunny.totalPoints<25"></div>
 
 <div class="happiness status-indicator">

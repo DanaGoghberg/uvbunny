@@ -66,18 +66,18 @@ import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functio
     AngularFirestoreModule
   ],
   providers: [
-    // {
-    //   provide: FIRESTORE_EMULATOR,
-    //   useValue: environment.production ? undefined : ['localhost', 5002],
-    // },
-    // {
-    //   provide: DATABASE_EMULATOR, // i.e., Realtime Database
-    //   useValue: environment.production ? undefined : ['localhost', 5003],
-    // },
-    // {
-    //   provide: FUNCTIONS_EMULATOR,
-    //   useValue: environment.production ? undefined : ['localhost', 5006],
-    // },
+    {
+      provide: FIRESTORE_EMULATOR,
+      useValue: environment.production ? undefined : ['localhost', 5002],
+    },
+    {
+      provide: DATABASE_EMULATOR, // i.e., Realtime Database
+      useValue: environment.production ? undefined : ['localhost', 5003],
+    },
+    {
+      provide: FUNCTIONS_EMULATOR,
+      useValue: environment.production ? undefined : ['localhost', 5006],
+    },
   ],
   bootstrap: [AppComponent]
 })
